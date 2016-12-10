@@ -1,5 +1,6 @@
 import java.sql.DriverManager
 import java.sql.Connection
+import java.text.DecimalFormat
 
 import scala.io.Source
 import sys.process._
@@ -45,14 +46,16 @@ class Stock(val stockSymbol:String) {
     //Save this data into a file for now
     val filename: String = stockSymbol+".csv"
 
-    val a = fromDate.getMonthOfYear
-    val b = fromDate.getDayOfMonth
+    val mFormat= new DecimalFormat("00");
+    val a = mFormat.format(fromDate.getMonthOfYear)
+    val b = mFormat.format(fromDate.getDayOfMonth)
     val c = fromDate.getYear
-    val d = toDate.getMonthOfYear
-    val e = toDate.getDayOfMonth
+    val d = mFormat.format(toDate.getMonthOfYear)
+    val e = mFormat.format(toDate.getDayOfMonth)
     val f = toDate.getYear
     val url = "http://chart.finance.yahoo.com/table.csv?s="+stockSymbol+"&a="+a+"&b="+b+"&c="+c+"" +
       "&d="+d+"&e="+e+"&f="+f+"&g=d&ignore=.csv"
+    println(url)
     new URL(url) #> new File(filename) !!
 
     loadCsvToDatabase(filename)
