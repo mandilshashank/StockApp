@@ -5,4 +5,5 @@ lazy val root = (project in file(".")).
     scalaVersion := "2.11.7"
   )
 
-libraryDependencies += "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test"
+libraryDependencies += "joda-time" % "joda-time" % "2.9.6"
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.24"
